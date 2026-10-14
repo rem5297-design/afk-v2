@@ -1,6 +1,4 @@
 // language: JavaScript, file: index.js, runtime: Revenge / Kettu
-// no settings export — the settings panel is what crashed Revenge.
-
 const CONFIG = {
   defaultReply: "hey — i'm afk right now, i'll reply when i'm back.",
   cooldownMs: 30 * 60 * 1000,
@@ -21,22 +19,21 @@ const lastReplyUser = new Map();
 function getStore(name) {
   try { return vendetta?.metro?.findByStoreName?.(name) ?? null; } catch (e) { return null; }
 }
-function getByProps(...props) {
-  try { return vendetta?.metro?.findByProps?.(...props) ?? null; } catch (e) { return null; }
+function getByProps(...p) {
+  try { return vendetta?.metro?.findByProps?.(...p) ?? null; } catch (e) { return null; }
 }
 function getSelfId() {
   try { return getStore("UserStore")?.getCurrentUser?.()?.id ?? null; } catch (e) { return null; }
 }
-function isBot(userId) {
+function isBot(id) {
   if (!CONFIG.ignoreBots) return false;
-  try { return !!getStore("UserStore")?.getUser?.(userId)?.bot; } catch (e) { return false; }
+  try { return !!getStore("UserStore")?.getUser?.(id)?.bot; } catch (e) { return false; }
 }
-function replyTextFor(userId) { return CONFIG.perUser[userId] ?? CONFIG.defaultReply; }
-function cooldownFor(userId) { return CONFIG.perUserCooldown[userId] ?? CONFIG.cooldownMs; }
-function passesCooldown(channelId, authorId) {
-  const now = Date.now();
-  const cd = cooldownFor(authorId);
-  return (now - (lastReply.get(channelId) ?? 0) >= cd) && (now - (lastReplyUser.get(authorId) ?? 0) >= cd);
+function replyTextFor(id) { return CONFIG.perUser[id] ?? CONFIG.defaultReply; }
+function cooldownFor(id) { return CONFIG.perUserCooldown[id] ?? CONFIG.cooldownMs; }
+function passesCooldown(c, a) {
+  const n = Date.now(), cd = cooldownFor(a);
+  return (n - (lastReply.get(c) ?? 0) >= cd) && (n - (lastReplyUser.get(a) ?? 0) >= cd);
 }
 function shouldReply({ channelId, authorId, isDM, isMention }) {
   if (!enabled) return false;
@@ -50,7 +47,6 @@ function shouldReply({ channelId, authorId, isDM, isMention }) {
   }
   return passesCooldown(channelId, authorId);
 }
-
 async function sendReply({ channelId, messageId, authorId, isDM }) {
   try {
     const sendMessage = getByProps("sendMessage", "editMessage")?.sendMessage;
@@ -60,12 +56,11 @@ async function sendReply({ channelId, messageId, authorId, isDM }) {
       messageReference: isDM ? undefined : { channel_id: channelId, message_id: messageId },
       allowedMentions: { parse: [], replied_user: false },
     });
-    const now = Date.now();
-    lastReply.set(channelId, now);
-    lastReplyUser.set(authorId, now);
+    const n = Date.now();
+    lastReply.set(channelId, n);
+    lastReplyUser.set(authorId, n);
   } catch (e) { vendetta.logger.warn("[AFK] send failed", e?.message); }
 }
-
 function patchIncoming() {
   try {
     const MS = getStore("MessageStore");
