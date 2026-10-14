@@ -3,6 +3,5 @@
   "description": "per-user custom auto-replies in DMs and servers",
   "authors": [{ "name": "you", "id": "YOUR_DISCORD_ID" }],
   "main": "index.js",
-  "hash": "e67e508d0833ffd1d86a46e1c3b8e82bc41438be48b81e0a22c6ef9c26d58e6f",
   "vendetta": { "icon": "ic_message" }
 }

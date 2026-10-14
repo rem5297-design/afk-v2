@@ -1,4 +1,6 @@
-// language: JavaScript, file: index.js, runtime: Revenge / Kettu
+// language: JavaScript, file: index.js, runtime: Kettu (Vendetta-based)
+// no settings export, no hash dependency, all API calls wrapped.
+
 const CONFIG = {
   defaultReply: "hey — i'm afk right now, i'll reply when i'm back.",
   cooldownMs: 30 * 60 * 1000,
