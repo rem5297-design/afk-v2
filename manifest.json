@@ -2,6 +2,6 @@
   "name": "AFK Auto-Responder",
   "description": "per-user custom auto-replies in DMs and servers",
   "authors": [{ "name": "you", "id": "YOUR_DISCORD_ID" }],
-  "main": "index.js",
+  "main": "https://raw.githubusercontent.com/rem5297-design/afk-v2/main/index.js",
   "vendetta": { "icon": "ic_message" }
 }

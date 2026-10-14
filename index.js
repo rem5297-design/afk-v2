@@ -1,5 +1,5 @@
-// language: JavaScript, file: index.js, runtime: Kettu (Vendetta-based)
-// no settings export, no hash dependency, all API calls wrapped.
+// language: JavaScript, file: index.js, runtime: Kettu / Revenge
+// no settings export. no hash. absolute main URL in manifest to dodge Kettu's slash bug.
 
 const CONFIG = {
   defaultReply: "hey — i'm afk right now, i'll reply when i'm back.",
