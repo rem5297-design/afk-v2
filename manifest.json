@@ -1,0 +1,8 @@
+{
+  "name": "AFK Auto-Responder",
+  "description": "per-user custom auto-replies in DMs and servers",
+  "authors": [{ "name": "you", "id": "YOUR_DISCORD_ID" }],
+  "main": "index.js",
+  "hash": "4ad3fefe9bc342562277d294f394dc4e424451aa51c6816b53e70d1c77d3e89e",
+  "vendetta": { "icon": "ic_message" }
+}
